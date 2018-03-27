@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumptyDumptyPlaySchool", "HumptyDumptyPlaySchool\HumptyDumptyPlaySchool.csproj", "{F7208FDD-FF8A-40DF-A713-017AA3109274}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolAPI", "SchoolAPI\SchoolAPI.csproj", "{5D5018FF-5E5D-481E-9648-C73B2F5225C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaySchoolEntities", "PlaySchoolEntities\PlaySchoolEntities.csproj", "{BF246890-27B2-40C5-BD4E-36525A61758C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7208FDD-FF8A-40DF-A713-017AA3109274}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7208FDD-FF8A-40DF-A713-017AA3109274}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7208FDD-FF8A-40DF-A713-017AA3109274}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7208FDD-FF8A-40DF-A713-017AA3109274}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D5018FF-5E5D-481E-9648-C73B2F5225C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D5018FF-5E5D-481E-9648-C73B2F5225C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D5018FF-5E5D-481E-9648-C73B2F5225C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D5018FF-5E5D-481E-9648-C73B2F5225C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF246890-27B2-40C5-BD4E-36525A61758C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF246890-27B2-40C5-BD4E-36525A61758C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF246890-27B2-40C5-BD4E-36525A61758C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF246890-27B2-40C5-BD4E-36525A61758C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

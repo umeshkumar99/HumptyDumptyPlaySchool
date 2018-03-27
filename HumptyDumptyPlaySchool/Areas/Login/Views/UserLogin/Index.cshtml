@@ -1,0 +1,242 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Styles/Style001.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <script>
+       
+        $(document).ready(function () {
+            //alert('body');
+
+            $('#username').focus();
+
+            $('#btnlogin').click(function () {
+                //alert('validate');
+                var usrname = document.getElementById('username');
+                var userpwd = document.getElementById('password');
+                if (usrname.value == "") {
+                    $('#validusername').html('Please enter username');
+                    $('#validusername').css('display', 'block');
+                    usrname.focus();
+                    return false;
+                }
+                else
+                    $('#validusername').css('display', 'none');
+
+
+
+                if (userpwd.value == "") {
+                        $('#validpass').html('Please enter password');
+                        $('#validpass').css('display', 'block');
+                        userpwd.focus();
+                        return false;
+                    }
+                    else
+                        $('#validpass').css('display', 'none');
+                alert('validate');
+                $.ajax(
+                 {
+
+                     url: '/UserLogin/CheckLogin',
+                     data: { usename: usrname.value, password: userpwd.value },
+                     method: 'Get',
+                     dataType: 'json',
+
+                     success: function (data) {
+                         alert(data.UserName);
+                     },
+                     error: function (err) {
+                         alert(err);
+                     }
+                 });
+
+            });
+            function validate()
+            {
+                alert('validate');
+                //var usrname = document.getElementById('username');
+                //var userpwd = document.getElementById('password');
+                //if (usrname.value == "") {
+                //    $('#validusername').html('Please enter username');
+                //    $('#validusername').css('display', 'block');
+                //    usrname.focus();
+                //    return false;
+                //}
+                //else
+                //    $('#validusername').css('display', 'none');
+                
+          
+              
+                //if (userpwd.value == "") {
+                //        $('#validpass').html('Please enter password');
+                //        $('#validpass').css('display', 'block');
+                //        userpwd.focus();
+                //        return false;
+                //    }
+                //    else
+                //        $('#validpass').css('display', 'none');
+                //alert('validate');
+                //debugger;
+                //$.ajax(
+                // {
+
+                //     url: '/UserLogin/CheckLogin',
+                //     data: { usename: usrname.value, password: userpwd.value },
+                //     method: 'Get',
+                //     dataType: 'json',
+
+                //     success: function (data) {
+                //         alert(data);
+                //     },
+                //     error: function (err) {
+                //         alert(err);
+                //     }
+                // });
+
+
+                };
+
+
+
+
+            $('#username').blur(function () {
+                    if ($(this).val() == "") {
+                        $('#validusername').html('Please enter username');
+                        $('#validusername').css('display', 'block');
+                        $(this).focus();
+                    }
+                    else
+                        $('#validusername').css('display', 'none');
+              //  alert('focus lost');
+                });
+
+                $('#password').blur(function () {
+                    if ($(this).val() == "") {
+                        $('#validpass').html('Please enter password');
+                        $('#validpass').css('display', 'block');
+                        $(this).focus();
+                    }
+                    else
+                        $('#validpass').css('display', 'none');
+                    //debugger;
+                   
+                });
+
+                        var myVar = setInterval(myTimer, 1000);
+            //timer function start
+                function myTimer() {
+                    var d = new Date();
+                    document.getElementById("currenttime").innerHTML = d.toLocaleTimeString();
+                }
+        });
+    </script>
+    <title>Index</title>
+</head>
+<body class="LoginBody">
+
+    <div class="row">
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header page-scroll">
+                    <div class="navbar-header page-scroll">
+                        <a class="navbar-brand" href="#">Humpty Dumpty Play School</a>
+                        
+                        <div id="currenttime" style="float:right"></div>
+                                        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br /><br /><br />
+    @*<div class="row">
+        <div class="col-xs-2 col-xs-offset-10;">
+            <div id="currenttime" style="float:right;width:110px;height:40px;color:red;font-weight:bold;text-align:right;padding-right:5px;"></div>
+        @*</div>
+    </div>*@
+    <div class="container" style="margin-top:100px;">
+    
+        
+           @using (Html.BeginForm())
+                {
+                    <div id="loginbox" style="margin-top: 30px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading panel-heading-custom">
+                        <div class="panel-title">
+                            Sign In
+                        </div>
+                    </div>
+                    <div style="padding-top: 30px" class="panel-body">
+                        <div style="display: none" id="login-alert" class="alert alert-danger col-sm-12">
+                        </div>
+                        <div id="loginform" class="form-horizontal" role="form">
+                            <div style="margin-bottom: 5px" class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input type="text" ID="username" CssClass="textbox" placeholder="username or email" style="margin-left:20px;"/>
+
+
+                            </div>
+                            <span style="display:none;color:red;" id="validusername" class="input-group">
+
+
+
+                            </span>
+                            
+                            <div style="margin-bottom: 5px" class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input type="password" ID="password" CssClass="textbox" placeholder="password"     style="margin-left:20px;" />
+                                
+                                    
+
+                            </div>
+                            <span style="display:none;color:red;" id="validpass" class="input-group"></span>
+
+                                
+
+                            
+                            
+                            @*<div class="input-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <asp:CheckBox ID="chkRemMe" runat="server" Text="Remember me" />
+                                    </label>
+                                </div>
+                            </div>*@
+                            <div style="margin-top: 10px" class="form-group">
+                                <!-- Button -->
+                                <div class="col-sm-12 controls">
+                                    <input type="button" value="Login" class="btn btn-success" id="btnlogin"  />
+                                  
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+  
+      <div class="row">
+        <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+            <div class="container">
+                <div class="navbar-header page-scroll">
+                    <div class="navbar-header page-scroll">
+                        <a class="navbar-brand" href="#">Copyrights reservered</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
