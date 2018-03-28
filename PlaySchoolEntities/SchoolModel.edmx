@@ -4,14 +4,23 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PlaySchoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PlaySchoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="usp_CitiesGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="stateid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_CountryGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetWeekDayName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+          <Parameter Name="weeknum" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_StateGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Countryid" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_UserDetailsGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="uname" Type="varchar" Mode="In" />
           <Parameter Name="pwd" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="PlaySchoolModelStoreContainer" />
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PlaySchoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -19,6 +28,13 @@
           <FunctionImport Name="usp_UserDetailsGet" ReturnType="Collection(PlaySchoolModel.usp_UserDetailsGet_Result)">
             <Parameter Name="uname" Mode="In" Type="String" />
             <Parameter Name="pwd" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CitiesGet" ReturnType="Collection(PlaySchoolModel.usp_CitiesGet_Result)">
+            <Parameter Name="stateid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_CountryGet" ReturnType="Collection(PlaySchoolModel.usp_CountryGet_Result)" />
+          <FunctionImport Name="usp_StateGet" ReturnType="Collection(PlaySchoolModel.usp_StateGet_Result)">
+            <Parameter Name="Countryid" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_UserDetailsGet_Result">
@@ -36,6 +52,19 @@
           <Property Type="Boolean" Name="IsLocked" Nullable="true" />
           <Property Type="Int32" Name="retryCount" Nullable="true" />
           <Property Type="Boolean" Name="isLoggedIn" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_CitiesGet_Result">
+          <Property Type="Int32" Name="CityID" Nullable="false" />
+          <Property Type="String" Name="CityName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ZipCode" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="usp_CountryGet_Result">
+          <Property Type="Int32" Name="CountryID" Nullable="false" />
+          <Property Type="String" Name="CountryName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="usp_StateGet_Result">
+          <Property Type="Int32" Name="StateID" Nullable="false" />
+          <Property Type="String" Name="StateName" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -60,6 +89,31 @@
                 <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
                 <ScalarProperty Name="retryCount" ColumnName="retryCount" />
                 <ScalarProperty Name="isLoggedIn" ColumnName="isLoggedIn" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_CitiesGet" FunctionName="PlaySchoolModel.Store.usp_CitiesGet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PlaySchoolModel.usp_CitiesGet_Result">
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_CountryGet" FunctionName="PlaySchoolModel.Store.usp_CountryGet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PlaySchoolModel.usp_CountryGet_Result">
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_StateGet" FunctionName="PlaySchoolModel.Store.usp_StateGet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PlaySchoolModel.usp_StateGet_Result">
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

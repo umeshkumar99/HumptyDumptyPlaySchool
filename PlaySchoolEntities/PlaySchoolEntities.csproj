@@ -122,6 +122,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SchoolModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="usp_CitiesGet_Result.cs">
+      <DependentUpon>SchoolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_CountryGet_Result.cs">
+      <DependentUpon>SchoolModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_StateGet_Result.cs">
+      <DependentUpon>SchoolModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_UserDetailsGet_Result.cs">
       <DependentUpon>SchoolModel.tt</DependentUpon>
     </Compile>

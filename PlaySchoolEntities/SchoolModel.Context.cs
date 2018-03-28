@@ -40,5 +40,28 @@ namespace PlaySchoolEntities
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_UserDetailsGet_Result>("usp_UserDetailsGet", unameParameter, pwdParameter);
         }
+    
+        public virtual ObjectResult<usp_CitiesGet_Result> usp_CitiesGet(Nullable<int> stateid)
+        {
+            var stateidParameter = stateid.HasValue ?
+                new ObjectParameter("stateid", stateid) :
+                new ObjectParameter("stateid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_CitiesGet_Result>("usp_CitiesGet", stateidParameter);
+        }
+    
+        public virtual ObjectResult<usp_CountryGet_Result> usp_CountryGet()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_CountryGet_Result>("usp_CountryGet");
+        }
+    
+        public virtual ObjectResult<usp_StateGet_Result> usp_StateGet(Nullable<int> countryid)
+        {
+            var countryidParameter = countryid.HasValue ?
+                new ObjectParameter("Countryid", countryid) :
+                new ObjectParameter("Countryid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_StateGet_Result>("usp_StateGet", countryidParameter);
+        }
     }
 }

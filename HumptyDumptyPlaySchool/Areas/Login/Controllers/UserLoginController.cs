@@ -9,18 +9,25 @@ using System.Net.Http.Headers;
 using PlaySchoolEntities;
 using Newtonsoft.Json;
 using System.Text;
+using System.Configuration;
 
 namespace HumptyDumptyPlaySchool.Areas.Login.Controllers
 {
     public class UserLoginController : Controller
     {
         // GET: Login/UserLogin
-        string baseaddress= "http://localhost:30322/api/";
+        string baseaddress;
+        
         PlaySchoolEntities1 playschool = new PlaySchoolEntities1();
+        public UserLoginController()
+        {
+            baseaddress=ConfigurationManager.AppSettings["APIURL"].ToString();
+        }
         public ActionResult Index()
         {
+            
 
-                
+
             return View();
         }
         
@@ -31,6 +38,7 @@ namespace HumptyDumptyPlaySchool.Areas.Login.Controllers
                 using (var client = new HttpClient())
                 {
                     clsLogin logindetails = new clsLogin();
+                    
                     logindetails.username = usename;
                     logindetails.pssword = password;
                     client.BaseAddress = new Uri(baseaddress);
