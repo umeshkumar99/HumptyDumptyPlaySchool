@@ -23,7 +23,7 @@ namespace HumptyDumptyPlaySchool.Areas.Student.Controllers
         {
             baseUrl = ConfigurationManager.AppSettings["APIURL"].ToString();
         }
-        // GET: Student/StudentDetails
+        // GET: Student/StudentDetails  
         //[ActionName("StudentList")] 
         public async Task<ActionResult> Index()
         {
