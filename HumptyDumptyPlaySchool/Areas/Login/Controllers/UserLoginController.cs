@@ -25,19 +25,20 @@ namespace HumptyDumptyPlaySchool.Areas.Login.Controllers
         }
         public ActionResult Index()
         {
+
             
-
-
             return View();
         }
         
         [HttpGet]
-        public async Task<ActionResult> CheckLogin(string usename,string password)
+        public async Task<JsonResult> CheckLogin(string usename,string password)
         {
+            List<usp_UserDetailsGet_Result> LoginInfo = new List<usp_UserDetailsGet_Result>();
+            clsLogin logindetails = new clsLogin();
             try {
                 using (var client = new HttpClient())
                 {
-                    clsLogin logindetails = new clsLogin();
+                   
                     
                     logindetails.username = usename;
                     logindetails.pssword = password;
@@ -51,7 +52,7 @@ namespace HumptyDumptyPlaySchool.Areas.Login.Controllers
                     response.EnsureSuccessStatusCode();
                     
                     // //Sending request to find web api REST service resource GetAllEmployees using HttpClient  
-                    List<usp_UserDetailsGet_Result> LoginInfo = new List<usp_UserDetailsGet_Result>();
+                    
                     
                     //Checking the response is successful or not which is sent using HttpClient  
                     if (response.IsSuccessStatusCode)
@@ -72,7 +73,17 @@ namespace HumptyDumptyPlaySchool.Areas.Login.Controllers
                 throw ex;
             }
 
-            return View();
+             return Json(LoginInfo,JsonRequestBehavior.AllowGet);
+           // return RedirectToAction("Student/StudentDetails/StudentDetails");
+        }
+
+        [HttpGet]
+        public ActionResult GetSudentDetails()
+        {
+            if (Session["LoginInfo"] == null)
+                return View("Index");
+            else
+                return View();
         }
     }
 }

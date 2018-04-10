@@ -12,7 +12,7 @@
     <link href="~/Styles/Style001.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width" />
     <script>
-       
+
         $(document).ready(function () {
             //alert('body');
 
@@ -41,7 +41,8 @@
                     }
                     else
                         $('#validpass').css('display', 'none');
-                alert('validate');
+                //alert('validate');
+                //debugger;
                 $.ajax(
                  {
 
@@ -51,10 +52,21 @@
                      dataType: 'json',
 
                      success: function (data) {
-                         alert(data.UserName);
+
+                         //debugger;
+                        // alert("sucess");
+                         if (data.length > 0) {
+                             debugger;
+                             
+                             var urltoredirect='http://localhost:22777/'+'@Url.Action("GetSudentDetails")';
+                             window.location.assign(location.host+ "/Student/StudentDetails/Index");
+                             //window.location = '~/Student/StudentDetails/Index';
+                             //$.post('@Url.Action("GetSudentDetails")');
+                         }
                      },
                      error: function (err) {
-                         alert(err);
+                         debugger;
+                         alert("error");
                      }
                  });
 
@@ -72,9 +84,9 @@
                 //}
                 //else
                 //    $('#validusername').css('display', 'none');
-                
-          
-              
+
+
+
                 //if (userpwd.value == "") {
                 //        $('#validpass').html('Please enter password');
                 //        $('#validpass').css('display', 'block');
@@ -127,7 +139,7 @@
                     else
                         $('#validpass').css('display', 'none');
                     //debugger;
-                   
+
                 });
 
                         var myVar = setInterval(myTimer, 1000);
@@ -140,18 +152,19 @@
     </script>
     <title>Index</title>
 </head>
-<body class="LoginBody">
+<body>
 
     <div class="row">
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header page-scroll">
                     <div class="navbar-header page-scroll">
-                        <a class="navbar-brand" href="#">Humpty Dumpty Play School</a>
-                        
-                        <div id="currenttime" style="float:right"></div>
-                                        </div>
+                        <span class="navbar-brand" href="#">Humpty Dumpty Play School</span>
 
+
+
+                        <span id="currenttime" class="right"></span>
+                    </div>
                 </div>
             </div>
         </div>

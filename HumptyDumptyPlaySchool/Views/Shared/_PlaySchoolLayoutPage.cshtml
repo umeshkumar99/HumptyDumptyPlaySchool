@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Styles/Style001.css" rel="stylesheet" />
+
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="row">
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header page-scroll">
+                    <div class="navbar-header page-scroll">
+                        <span class="navbar-brand" href="#">Humpty Dumpty Play School</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <div class="row">
+        <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+            <div class="container">
+                <div class="navbar-header page-scroll">
+                    <div class="navbar-header page-scroll">
+                        <a class="navbar-brand" href="#">Copyrights reservered</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

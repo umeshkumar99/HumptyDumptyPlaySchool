@@ -63,5 +63,10 @@ namespace PlaySchoolEntities
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_StateGet_Result>("usp_StateGet", countryidParameter);
         }
+    
+        public virtual ObjectResult<usp_StudentGet_Result> usp_StudentGet()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_StudentGet_Result>("usp_StudentGet");
+        }
     }
 }

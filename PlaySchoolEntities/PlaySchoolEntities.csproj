@@ -131,6 +131,9 @@
     <Compile Include="usp_StateGet_Result.cs">
       <DependentUpon>SchoolModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_StudentGet_Result.cs">
+      <DependentUpon>SchoolModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_UserDetailsGet_Result.cs">
       <DependentUpon>SchoolModel.tt</DependentUpon>
     </Compile>

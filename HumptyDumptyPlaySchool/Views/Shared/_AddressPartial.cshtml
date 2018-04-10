@@ -1,23 +1,25 @@
 ﻿@model HumptyDumptyPlaySchool.Models.AddressModel
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
 <div>
-    <h4>Address Details</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Address1)
         </dt>
+        <h4>Address Details</h4>
 
         <dd>
-            @Html.DisplayFor(model => model.Address1)
+            @Html.TextBoxFor(model => model.Address1)
         </dd>
 
         <dt>
+            <script src="~/Scripts/jquery-1.10.2.min.js"></script>
             @Html.DisplayNameFor(model => model.Address2)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Address2)
+            @Html.TextBoxFor(model => model.Address2)
         </dd>
 
         <dt>
@@ -25,16 +27,31 @@
         </dt>
 
         <dd>
-         @Html.DropDownListFor(model=> Model.CountryName, Model.CountryName, "--Select--", new { @id = "ddlCountry" })
+            @Html.DropDownListFor(model => Model.CountryName, Model.CountryName, "--Select--", new { @id = "ddlCountry" })
         </dd>
 
 
+
+        <dt>
+            State List
+        </dt>
+
+        <dd>
+            @Html.DropDownList("State", new SelectList(string.Empty, "value", "text"), "--Select State--", new { style = "style=200px;" })
+        </dd>
+
+        <dt>
+            City List
+        </dt>
+        <dd>
+            @Html.DropDownList("City", new SelectList(string.Empty, "value", "text"), "--Select City--", new { style = "width=200px;" })
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Zipcode)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Zipcode)
+            @Html.TextBoxFor(model => model.Zipcode)
         </dd>
 
     </dl>
@@ -43,3 +60,55 @@
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<script>
+    $(document).ready(function () {
+       
+        $('#ddlCountry').change(function () {
+            $('#City').empty();
+       
+            $.ajax({
+                type:'Post',
+                url:'@Url.Action("getState")',
+                dataType:'json',
+                data : {countryid:$(this).val()},
+                success:function(state){
+                    debugger;
+                    $.each(state, function (index, state) {
+                        $('#State').append('<option value="' + state.Value + '">' + state.Text + '</option>');
+                    });
+                },
+
+                error: function(ex)
+                {
+                    alert(ex.statusText.toString());
+                }
+
+            });
+        });
+
+        $('#State').change(function () {
+          //  alert($(this).val());
+            //debugger;
+            $('#City').empty();
+            $.ajax({
+                type: 'Post',
+                url: '@Url.Action("getCity")',
+                dataType: 'json',
+                data: { stateid: $(this).val() },
+                
+                success: function(City){
+                    $.each(City, function (index,City) {
+                        $('#City').append('<option value="' + City.Value + '">' + City.Text + '</option>');
+                    });
+                },
+                error: function( ex)
+                {
+                    alert(ex.statusText.toString());
+                }
+            });
+        });
+
+
+    });
+
+</script>
