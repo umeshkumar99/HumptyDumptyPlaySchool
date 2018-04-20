@@ -26,7 +26,7 @@ namespace HumptyDumptyPlaySchool.Areas.Comman.Controllers
             return View();
         }
 
-
+        [HttpGet]
         //to get Countrylist 
         public async Task<ActionResult> GetCountries()
         {
@@ -63,7 +63,7 @@ namespace HumptyDumptyPlaySchool.Areas.Comman.Controllers
 
 
         //to get state list
-
+        [HttpGet]
         public async Task<ActionResult> GetStates(int CountryID)
         {
             List<usp_StateGet_Result> StateList = new List<usp_StateGet_Result>();
@@ -92,7 +92,7 @@ namespace HumptyDumptyPlaySchool.Areas.Comman.Controllers
 
         }
 
-
+        [HttpGet]
         public async Task<ActionResult> GetCities(int Stateid)
         {
             List<usp_CitiesGet_Result> CityList = new List<usp_CitiesGet_Result>();
@@ -116,6 +116,34 @@ namespace HumptyDumptyPlaySchool.Areas.Comman.Controllers
 
                 }
                 return Json(CityList, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+        [HttpGet]
+        public async Task<ActionResult> GetMasterList(string masterId)
+        {
+            List<usp_MasterGetList_Result> MasterList = new List<usp_MasterGetList_Result>();
+            AddressModel address = new AddressModel();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                //Sending request to find web api REST service resource GetAllEmployees using HttpClient  
+                HttpResponseMessage Res = await client.GetAsync("Comman/GetMasterData?MasterCode=" + masterId);
+                if (Res.IsSuccessStatusCode)
+                {
+                    //Storing the response details recieved from web api   
+                    var MasterResponse = Res.Content.ReadAsStringAsync().Result;
+
+                    //Deserializing the response recieved from web api and storing into the Employee list  
+                    MasterList = JsonConvert.DeserializeObject<List<usp_MasterGetList_Result>>(MasterResponse);
+
+
+                }
+                return Json(MasterList, JsonRequestBehavior.AllowGet);
             }
 
 

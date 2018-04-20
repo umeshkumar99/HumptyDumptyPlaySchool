@@ -23,6 +23,13 @@ namespace SchoolAPI.Controllers
             return StudentDetails;
         }
 
-
+        [HttpGet]
+        public List<usp_StudentbyIDGet_Result> GetStudentByID(int id)
+        {
+            //   string username = "admin"; string pwd = "123456";
+            //List<usp_UserDetailsGet_Result> UserDetails = playschool.usp_UserDetailsGet(username, pwd).ToList();
+            List<usp_StudentbyIDGet_Result> StudentDetails = playschool.usp_StudentbyIDGet(id).ToList();
+            return StudentDetails;
+        }
     }
 }

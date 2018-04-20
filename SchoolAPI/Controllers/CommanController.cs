@@ -53,5 +53,18 @@ namespace SchoolAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public List<usp_MasterGetList_Result> GetMasterData(string MasterCode)
+        {
+            try
+            {
+                List<usp_MasterGetList_Result> MasterList = playschool.usp_MasterGetList(MasterCode).ToList();
+                return MasterList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

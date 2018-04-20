@@ -4,187 +4,213 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_PlaySchoolLayoutPage.cshtml";
 }
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
 
-<h2>Index</h2>
-
+<br /><br /><br /><br />
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "CreateStudent")
 </p>
-<table class="table" style="z-index:1;">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CityName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ZipCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StateName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CountryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DOB)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DOJ)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FatherName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FatherOccupation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MotherOccupation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FatherMobileNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MotherName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MotherMobileNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentPhoto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FatherPhoto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MotherPhoto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Timings)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fees)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentSource)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdmissionRemarks)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class="col-lg-12 col-xs-12">
+        <div class="table-responsive">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CityName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZipCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StateName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CountryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DOB)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DOJ)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FatherName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FatherOccupation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MotherOccupation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FatherMobileNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MotherName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MotherMobileNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentPhoto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FatherPhoto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MotherPhoto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Timings)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fees)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentSource)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdmissionRemarks)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+            <table class="table table-bordered table-hover" style="z-index:1;">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StudentID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StudentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address1)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address2)
+                    </th>
 
-</table>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CityName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ZipCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StateName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CountryName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DOB)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DOJ)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FatherName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FatherOccupation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MotherOccupation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FatherMobileNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MotherName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MotherMobileNumber)
+                    </th>
+                                        <th>
+                        @Html.DisplayNameFor(model => model.StudentPhoto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FatherPhoto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MotherPhoto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EmailId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Timings)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.fees)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StudentSource)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AdmissionRemarks)
+                    </th>
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </th>*@
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                       
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Gender)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address2)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CityName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ZipCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StateName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CountryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DOB)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DOJ)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FatherName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FatherOccupation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MotherOccupation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FatherMobileNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MotherName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MotherMobileNumber)
+                        </td>
+                        
+                        <td>
+                            @*Html.DisplayFor(modelItem => item.StudentPhoto)*@
+                            @if (item.StudentPhoto != null && item.StudentPhoto !="")
+                            {
+                            <img src="@Url.Content(item.StudentPhoto)"/>
+                            }
+                           @*<img src="@Url.Content(modelItem => item.StudentPhoto)" />*@ 
+                            
+                                                         </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.FatherPhoto)*@
+                            @if (item.StudentPhoto != null && item.FatherPhoto != "")
+                            {
+                                <img src="@Url.Content(item.FatherPhoto)" />
+                            }
+                        </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.MotherPhoto)*@
+                            @if (item.MotherPhoto != null && item.MotherPhoto != "")
+                            {
+                                <img src="@Url.Content(item.MotherPhoto)" />
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmailId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Timings)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fees)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentSource)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AdmissionRemarks)
+                        </td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>*@
+                        <td>
+                            @Html.ActionLink("Edit", "EditStudent", new { id = item.StudentID }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+    </div>
+</div>

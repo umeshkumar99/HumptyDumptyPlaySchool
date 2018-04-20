@@ -58,10 +58,15 @@
                          if (data.length > 0) {
                              debugger;
                              
-                             var urltoredirect='http://localhost:22777/'+'@Url.Action("GetSudentDetails")';
-                             window.location.assign(location.host+ "/Student/StudentDetails/Index");
+                             var urltoredirect ="http://"+ location.host + "//Student/StudentDetails/Index";
+                             window.location.assign(urltoredirect);
                              //window.location = '~/Student/StudentDetails/Index';
                              //$.post('@Url.Action("GetSudentDetails")');
+                         }
+                         else
+                         {
+                             alert("Wrong username or password. PLease try again.");
+                             usrname.focus();
                          }
                      },
                      error: function (err) {

@@ -57,7 +57,8 @@ namespace HumptyDumptyPlaySchool.Areas.Login.Controllers
                     //Checking the response is successful or not which is sent using HttpClient  
                     if (response.IsSuccessStatusCode)
                     {
-                        //Storing the response details recieved from web api   
+                        //Storing the response details recieved from web api 
+                         
                         var EmpResponse = response.Content.ReadAsStringAsync().Result;
 
                         //Deserializing the response recieved from web api and storing into the Employee list  

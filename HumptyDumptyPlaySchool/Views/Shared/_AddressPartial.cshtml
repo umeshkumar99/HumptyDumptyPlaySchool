@@ -1,72 +1,117 @@
 ﻿@model HumptyDumptyPlaySchool.Models.AddressModel
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Address1)
-        </dt>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+@*<div style="border:2px solid;width:80%;margin-left:150px;">*@
+    @*<div class="col-md-8 col-md-offset-2">*@
+    <div class="form-horizontal">
         <h4>Address Details</h4>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Address1, htmlAttributes: new { @class = "form-control" })
+            </div>
 
-        <dd>
-            @Html.TextBoxFor(model => model.Address1)
-        </dd>
+        </div>
 
-        <dt>
-            <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-            @Html.DisplayNameFor(model => model.Address2)
-        </dt>
-
-        <dd>
-            @Html.TextBoxFor(model => model.Address2)
-        </dd>
-
-        <dt>
-            Country List
-        </dt>
-
-        <dd>
-            @Html.DropDownListFor(model => Model.CountryName, Model.CountryName, "--Select--", new { @id = "ddlCountry" })
-        </dd>
+        <div class="form-group" ">
+            @Html.LabelFor(model => model.Address2, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.DisplayNameFor(model => model.Address2)*@
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Address2, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label col-md-2" })
 
 
+            @Html.DropDownListFor(model => Model.CountryName, ViewBag.CountryName as List<SelectListItem>, "--Select--", new { @id = "ddlCountry" })
 
-        <dt>
-            State List
-        </dt>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.StateName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.DropDownList("State", new SelectList(string.Empty, "value", "text"), "--Select State--",  htmlAttributes: new { @class = "dropdown" })
 
-        <dd>
-            @Html.DropDownList("State", new SelectList(string.Empty, "value", "text"), "--Select State--", new { style = "style=200px;" })
-        </dd>
+            </div>
+        </div>
+        <div class="form-group ">
 
-        <dt>
-            City List
-        </dt>
-        <dd>
-            @Html.DropDownList("City", new SelectList(string.Empty, "value", "text"), "--Select City--", new { style = "width=200px;" })
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Zipcode)
-        </dt>
 
-        <dd>
-            @Html.TextBoxFor(model => model.Zipcode)
-        </dd>
+            @Html.LabelFor(model => model.CityName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.DropDownList("City", new SelectList(string.Empty, "value", "text"), "--Select City--", htmlAttributes: new { @class = "dropdown" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Zipcode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Zipcode, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+
+    </div>
+@*</div>*@
+@*</div>*@
 <script>
     $(document).ready(function () {
-       
+
+
+        @*function GetCountry()
+        {
+            $('#Country').empty();
+
+            $.ajax({
+                type: 'Post',
+                url: '@Url.Action("GetCountries")',
+                dataType: 'json',
+                data: { countryid: $(this).val() },
+                success: function (country) {
+                    debugger;
+                    $.each(state, function (index, state) {
+                        $('#Country').append('<option value="' + country.Value + '">' + country.Text + '</option>');
+                    });
+                },
+
+                error: function (ex) {
+                    alert(ex.statusText.toString());
+                }
+
+            });
+
+        }*@
+
+        function fillDropdown( ddID,url,data)
+        {
+            debugger;
+            $.ajax({
+                type: 'Post',
+                url: url,
+                dataType: 'json',
+                data: { countryid: data },
+                success: function (state) {
+                    debugger;
+                   // alert('sucess');
+                    $.each(state, function (index, state) {
+                        alert(this.Value.toString() + this.Text.toString());
+                        ddID.append('<option value="' + this.Value.toString() + '">' + this.Text.toString() + '</option>');
+                    });
+                },
+
+                error: function (ex) {
+                    alert(ex.statusText.toString());
+                }
+
+            });
+        }
         $('#ddlCountry').change(function () {
             $('#City').empty();
-       
-            $.ajax({
+
+            //fillDropdown(document.getElementById("State"), '@Url.Action("getState")', $(this).val())
+
+           $.ajax({
                 type:'Post',
                 url:'@Url.Action("getState")',
                 dataType:'json',
@@ -95,7 +140,7 @@
                 url: '@Url.Action("getCity")',
                 dataType: 'json',
                 data: { stateid: $(this).val() },
-                
+
                 success: function(City){
                     $.each(City, function (index,City) {
                         $('#City').append('<option value="' + City.Value + '">' + City.Text + '</option>');

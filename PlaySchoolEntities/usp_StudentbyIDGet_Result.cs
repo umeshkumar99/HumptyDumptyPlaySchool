@@ -11,7 +11,7 @@ namespace PlaySchoolEntities
 {
     using System;
     
-    public partial class usp_StudentGet_Result
+    public partial class usp_StudentbyIDGet_Result
     {
         public int StudentID { get; set; }
         public string StudentName { get; set; }

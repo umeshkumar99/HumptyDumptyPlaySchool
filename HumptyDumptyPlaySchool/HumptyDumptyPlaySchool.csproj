@@ -57,6 +57,14 @@
       <HintPath>..\packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -217,6 +225,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -425,6 +434,21 @@
     <Content Include="Images\settings.png" />
     <Content Include="Images\show-calendar.gif" />
     <Content Include="Images\statedetails_masters.png" />
+    <Content Include="Images\Student\father1.jpg" />
+    <Content Include="Images\Student\father2.jpg" />
+    <Content Include="Images\Student\father3.jpg" />
+    <Content Include="Images\Student\father4.jpg" />
+    <Content Include="Images\Student\father5.jpg" />
+    <Content Include="Images\Student\student1.jpg" />
+    <Content Include="Images\Student\student2.jpg" />
+    <Content Include="Images\Student\student3.jpg" />
+    <Content Include="Images\Student\student4.jpg" />
+    <Content Include="Images\Student\student5.jpg" />
+    <Content Include="Images\Student\women1.jpg" />
+    <Content Include="Images\Student\women2.jpg" />
+    <Content Include="Images\Student\women3.jpg" />
+    <Content Include="Images\Student\women4.jpg" />
+    <Content Include="Images\Student\women5.jpg" />
     <Content Include="Images\sub_node.gif" />
     <Content Include="Images\sub_node2.png" />
     <Content Include="Images\survey_detail.png" />
@@ -485,6 +509,8 @@
     <Content Include="Images\Thumbs.db" />
     <Content Include="Areas\Login\Views\UserLogin\GetSudentDetails.cshtml" />
     <Content Include="Areas\Student\Views\StudentDetails\Index.cshtml" />
+    <Content Include="Areas\Student\Views\StudentDetails\CreateStudent.cshtml" />
+    <Content Include="Areas\Student\Views\StudentDetails\EditStudent.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -534,6 +560,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_AddressPartial.cshtml" />
     <Content Include="Views\Shared\_PlaySchoolLayoutPage.cshtml" />
+    <Content Include="Views\Shared\_AddressPartialStrongly.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
