@@ -63,45 +63,69 @@ namespace HumptyDumptyPlaySchool.Areas.Student.Controllers
         [HttpGet]
         public ActionResult CreateStudent ()
         {
-            return View();
-
+            if (Session["LoginInfo"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserLogin", new { area = "Login" });
+            }
         }
         [HttpPost]
         public ActionResult CreateStudent(usp_StudentGet_Result student)
         {
-            string studentphoto, fatherphoto, motherphoto;
-            int stateID = Convert.ToInt32( Request.Form["State"].ToString());
-            int CountyID = Convert.ToInt32(Request.Form["CountryName"].ToString());
-            int CityID = Convert.ToInt32(Request.Form["City"].ToString());
-            var fp = Request.Files["studentphoto"];
-            if (fp != null && fp.ContentLength >= 0)
+            try
             {
-                var fileName = Path.GetFileName(fp.FileName);
-                 Guid Id = Guid.NewGuid();
-                studentphoto= "~/App_Data/Upload/" +Id.ToString() + Path.GetExtension(fileName);
-                string path = Server.MapPath("~/App_Data/Upload/") + Id.ToString() + Path.GetExtension(fileName);
-                fp.SaveAs(path);
-                fp = null;
+                if (Session["LoginInfo"] != null)
+                {
+                    string studentphoto, fatherphoto, motherphoto;
+                    int stateID = Convert.ToInt32(Request.Form["State"].ToString());
+                    int CountyID = Convert.ToInt32(Request.Form["CountryName"].ToString());
+                    int CityID = Convert.ToInt32(Request.Form["City"].ToString());
+                    int Gender = Convert.ToInt32(Request.Form["Gender"].ToString());
+                    int MotherOccupation = Convert.ToInt32(Request.Form["MotherOccupation"].ToString());
+                    int FatherOccupation = Convert.ToInt32(Request.Form["City"].ToString());
+                    int StudentSource = Convert.ToInt32(Request.Form["StudentSource"].ToString());
+                    var fp = Request.Files["studentphoto"];
+                    if (fp != null && fp.ContentLength >= 0)
+                    {
+                        var fileName = Path.GetFileName(fp.FileName);
+                        Guid Id = Guid.NewGuid();
+                        studentphoto = "~/App_Data/Upload/" + Id.ToString() + Path.GetExtension(fileName);
+                        string path = Server.MapPath("~/App_Data/Upload/") + Id.ToString() + Path.GetExtension(fileName);
+                        fp.SaveAs(path);
+                        fp = null;
+                    }
+                    fp = Request.Files["fatherphoto"];
+                    if (fp != null && fp.ContentLength >= 0)
+                    {
+                        var fileName = Path.GetFileName(fp.FileName);
+                        Guid Id = Guid.NewGuid();
+                        fatherphoto = "~/App_Data/Upload/" + Id.ToString() + Path.GetExtension(fileName);
+                        string path = Server.MapPath("~/App_Data/Upload/") + Id.ToString() + Path.GetExtension(fileName);
+                        fp.SaveAs(path);
+                        fp = null;
+                    }
+                    fp = Request.Files["motherphoto"];
+                    if (fp != null && fp.ContentLength >= 0)
+                    {
+                        var fileName = Path.GetFileName(fp.FileName);
+                        Guid Id = Guid.NewGuid();
+                        motherphoto = "~/App_Data/Upload/" + Id.ToString() + Path.GetExtension(fileName);
+                        string path = Server.MapPath("~/App_Data/Upload/") + Id.ToString() + Path.GetExtension(fileName);
+                        fp.SaveAs(path);
+                        fp = null;
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "UserLogin", new { area = "Login" });
+                }
             }
-             fp = Request.Files["fatherphoto"];
-            if (fp != null && fp.ContentLength >= 0)
+            catch(Exception ex)
             {
-                var fileName = Path.GetFileName(fp.FileName);
-                Guid Id = Guid.NewGuid();
-                fatherphoto = "~/App_Data/Upload/" + Id.ToString() + Path.GetExtension(fileName);
-                string path = Server.MapPath("~/App_Data/Upload/") + Id.ToString() + Path.GetExtension(fileName);
-                fp.SaveAs(path);
-                fp = null;
-            }
-            fp = Request.Files["motherphoto"];
-            if (fp != null && fp.ContentLength >= 0)
-            {
-                var fileName = Path.GetFileName(fp.FileName);
-                Guid Id = Guid.NewGuid();
-                motherphoto = "~/App_Data/Upload/" + Id.ToString() + Path.GetExtension(fileName);
-                string path = Server.MapPath("~/App_Data/Upload/") + Id.ToString() + Path.GetExtension(fileName);
-                fp.SaveAs(path);
-                fp = null;
+
             }
             //List<FileDetail> fileDetails = new List<FileDetail>();
             //for (int i = 0; i < Request.Files.Count; i++)
@@ -242,7 +266,7 @@ namespace HumptyDumptyPlaySchool.Areas.Student.Controllers
             }
         }
 
-        public JsonResult getState(int countryid)
+        public JsonResult getState(int id)
         {
             List<SelectListItem> State = new List<SelectListItem>();
             List<usp_StateGet_Result> StateList = new List<usp_StateGet_Result>();
@@ -254,7 +278,7 @@ namespace HumptyDumptyPlaySchool.Areas.Student.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 //Sending request to find web api REST service resource GetAllEmployees using HttpClient  
-                HttpResponseMessage Res = client.GetAsync("Comman/GetStateList?CountyId=" + countryid.ToString()).Result;
+                HttpResponseMessage Res = client.GetAsync("Comman/GetStateList?CountyId=" + id.ToString()).Result;
                 if (Res.IsSuccessStatusCode)
                 {
                     //Storing the response details recieved from web api   
@@ -276,7 +300,7 @@ namespace HumptyDumptyPlaySchool.Areas.Student.Controllers
 
         }
 
-        public JsonResult getCity(int stateid)
+        public JsonResult getCity(int id)
         {
 
             List<usp_CitiesGet_Result> CityList = new List<usp_CitiesGet_Result>();
@@ -288,7 +312,7 @@ namespace HumptyDumptyPlaySchool.Areas.Student.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 //Sending request to find web api REST service resource GetAllEmployees using HttpClient  
-                HttpResponseMessage Res = client.GetAsync("Comman/GetCities?StateId=" + stateid.ToString()).Result;
+                HttpResponseMessage Res = client.GetAsync("Comman/GetCities?StateId=" + id.ToString()).Result;
                 if (Res.IsSuccessStatusCode)
                 {
                     //Storing the response details recieved from web api   
@@ -309,5 +333,36 @@ namespace HumptyDumptyPlaySchool.Areas.Student.Controllers
 
       
         }
+
+        public JsonResult GetMasterList(string id)
+        {
+            List<usp_MasterGetList_Result> MasterList = new List<usp_MasterGetList_Result>();
+            //   AddressModel address = new AddressModel();
+            List<SelectListItem> Master = new List<SelectListItem>();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                //Sending request to find web api REST service resource GetAllEmployees using HttpClient  
+                HttpResponseMessage Res = client.GetAsync("Comman/GetMasterData?MasterCode=" + id).Result;
+                if (Res.IsSuccessStatusCode)
+                {
+                    //Storing the response details recieved from web api   
+                    var MasterResponse = Res.Content.ReadAsStringAsync().Result;
+
+                    //Deserializing the response recieved from web api and storing into the Mater list  
+                    MasterList = JsonConvert.DeserializeObject<List<usp_MasterGetList_Result>>(MasterResponse);
+
+
+                }
+                MasterList.ForEach(x =>
+                {
+                    Master.Add(new SelectListItem { Text = x.MasterValue, Value = x.MasterCodeID.ToString() });
+                });
+                return Json(new SelectList(Master, "Value", "Text", JsonRequestBehavior.AllowGet));
+            }
+        }
+        }
     }
-}

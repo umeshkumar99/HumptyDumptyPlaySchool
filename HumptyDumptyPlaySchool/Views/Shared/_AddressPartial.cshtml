@@ -1,5 +1,6 @@
 ﻿@model HumptyDumptyPlaySchool.Models.AddressModel
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/commanscript.js"></script>
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 @*<div style="border:2px solid;width:80%;margin-left:150px;">*@
     @*<div class="col-md-8 col-md-offset-2">*@
@@ -7,7 +8,7 @@
         <h4>Address Details</h4>
         <div class="form-group">
             @Html.LabelFor(model => model.Address1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            <div class="col-md-6">
                 @Html.TextBoxFor(model => model.Address1, htmlAttributes: new { @class = "form-control" })
             </div>
 
@@ -16,20 +17,20 @@
         <div class="form-group" ">
             @Html.LabelFor(model => model.Address2, htmlAttributes: new { @class = "control-label col-md-2" })
             @*@Html.DisplayNameFor(model => model.Address2)*@
-            <div class="col-md-8">
+            <div class="col-md-6">
                 @Html.TextBoxFor(model => model.Address2, htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
 
-
-            @Html.DropDownListFor(model => Model.CountryName, ViewBag.CountryName as List<SelectListItem>, "--Select--", new { @id = "ddlCountry" })
-
-        </div>
+                @Html.DropDownListFor(model => Model.CountryName, ViewBag.CountryName as List<SelectListItem>, "--Select--", htmlAttributes: new { @class = "dropdown" })
+                </div>
+            </div>
         <div class="form-group">
             @Html.LabelFor(model => model.StateName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            <div class="col-md-6">
                 @Html.DropDownList("State", new SelectList(string.Empty, "value", "text"), "--Select State--",  htmlAttributes: new { @class = "dropdown" })
 
             </div>
@@ -38,13 +39,13 @@
 
 
             @Html.LabelFor(model => model.CityName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            <div class="col-md-6">
                 @Html.DropDownList("City", new SelectList(string.Empty, "value", "text"), "--Select City--", htmlAttributes: new { @class = "dropdown" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Zipcode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            <div class="col-md-6">
                 @Html.TextBoxFor(model => model.Zipcode, htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
@@ -56,7 +57,7 @@
 @*</div>*@
 @*</div>*@
 <script>
-    $(document).ready(function () {
+    //$(document).ready(function () {
 
 
         @*function GetCountry()
@@ -83,35 +84,14 @@
 
         }*@
 
-        function fillDropdown( ddID,url,data)
-        {
-            debugger;
-            $.ajax({
-                type: 'Post',
-                url: url,
-                dataType: 'json',
-                data: { countryid: data },
-                success: function (state) {
-                    debugger;
-                   // alert('sucess');
-                    $.each(state, function (index, state) {
-                        alert(this.Value.toString() + this.Text.toString());
-                        ddID.append('<option value="' + this.Value.toString() + '">' + this.Text.toString() + '</option>');
-                    });
-                },
 
-                error: function (ex) {
-                    alert(ex.statusText.toString());
-                }
-
-            });
-        }
-        $('#ddlCountry').change(function () {
+    $('#CountryName').change(function () {
+            $('#State').empty();
             $('#City').empty();
 
             //fillDropdown(document.getElementById("State"), '@Url.Action("getState")', $(this).val())
-
-           $.ajax({
+        fillDropdown($('#State'), '@Url.Action("getState")', document.getElementById('CountryName').value);
+           @*$.ajax({
                 type:'Post',
                 url:'@Url.Action("getState")',
                 dataType:'json',
@@ -128,14 +108,16 @@
                     alert(ex.statusText.toString());
                 }
 
-            });
+            });*@
         });
 
         $('#State').change(function () {
           //  alert($(this).val());
             //debugger;
             $('#City').empty();
-            $.ajax({
+
+            fillDropdown($('#City'), '@Url.Action("getCity")', document.getElementById('State').value);
+            @*$.ajax({
                 type: 'Post',
                 url: '@Url.Action("getCity")',
                 dataType: 'json',
@@ -150,10 +132,10 @@
                 {
                     alert(ex.statusText.toString());
                 }
-            });
+            });*@
         });
 
 
-    });
+    //});
 
 </script>
