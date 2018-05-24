@@ -43,5 +43,10 @@ namespace PlaySchoolEntities
         public int CityID { get; set; }
         public int StateID { get; set; }
         public int CountryID { get; set; }
+        public int UserID { get; set; }
+        public int GenderId { get; set; }
+        public Nullable<int> FatherOccupationId { get; set; }
+        public Nullable<int> MotherOccupationId { get; set; }
+        public Nullable<int> StudentSourceId { get; set; }
     }
 }

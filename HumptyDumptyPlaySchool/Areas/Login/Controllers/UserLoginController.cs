@@ -33,7 +33,8 @@ namespace HumptyDumptyPlaySchool.Areas.Login.Controllers
         [HttpGet]
         public async Task<JsonResult> CheckLogin(string usename,string password)
         {
-            List<usp_UserDetailsGet_Result> LoginInfo = new List<usp_UserDetailsGet_Result>();
+            //   List<usp_UserDetailsGet_Result> LoginInfo = new List<usp_UserDetailsGet_Result>();
+            usp_UserDetailsGet_Result LoginInfo=new usp_UserDetailsGet_Result();
             clsLogin logindetails = new clsLogin();
             try {
                 using (var client = new HttpClient())
@@ -58,11 +59,11 @@ namespace HumptyDumptyPlaySchool.Areas.Login.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         //Storing the response details recieved from web api 
-                         
-                        var EmpResponse = response.Content.ReadAsStringAsync().Result;
+
+                         LoginInfo = await response.Content.ReadAsAsync<usp_UserDetailsGet_Result>();
 
                         //Deserializing the response recieved from web api and storing into the Employee list  
-                        LoginInfo = JsonConvert.DeserializeObject<List<usp_UserDetailsGet_Result>>(EmpResponse);
+                      //  LoginInfo = (usp_UserDetailsGet_Result)(EmpResponse);
                         Session["LoginInfo"] = LoginInfo;
 
                     }

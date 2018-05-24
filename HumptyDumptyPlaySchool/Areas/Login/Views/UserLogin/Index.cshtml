@@ -7,7 +7,7 @@
 
 <html>
 <head>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-1.12.4.js"></script>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Styles/Style001.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width" />
@@ -55,8 +55,8 @@
 
                          //debugger;
                         // alert("sucess");
-                         if (data.length > 0) {
-                             debugger;
+                         if (data.UserID != "" || data.UserID!=null) {
+                    //         debugger;
                              
                              var urltoredirect ="http://"+ location.host + "//Student/StudentDetails/Index";
                              window.location.assign(urltoredirect);
@@ -78,7 +78,7 @@
             });
             function validate()
             {
-                alert('validate');
+             //  alert('validate');
                 //var usrname = document.getElementById('username');
                 //var userpwd = document.getElementById('password');
                 //if (usrname.value == "") {
@@ -151,7 +151,7 @@
             //timer function start
                 function myTimer() {
                     var d = new Date();
-                    document.getElementById("currenttime").innerHTML = d.toLocaleTimeString();
+                    document.getElementById("currenttime").innerHTML =d.toLocaleDateString() + d.toLocaleTimeString();
                 }
         });
     </script>

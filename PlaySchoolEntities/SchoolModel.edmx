@@ -22,6 +22,30 @@
           <Parameter Name="StudentID" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_StudentGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_StudentInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Gender" Type="int" Mode="In" />
+          <Parameter Name="DOB" Type="datetime" Mode="In" />
+          <Parameter Name="DOJ" Type="datetime" Mode="In" />
+          <Parameter Name="FatherName" Type="nvarchar" Mode="In" />
+          <Parameter Name="FatherOccupation" Type="int" Mode="In" />
+          <Parameter Name="FatherMobileNumber" Type="varchar" Mode="In" />
+          <Parameter Name="MotherName" Type="nvarchar" Mode="In" />
+          <Parameter Name="MotherOccupation" Type="int" Mode="In" />
+          <Parameter Name="MotherMobileNumber" Type="varchar" Mode="In" />
+          <Parameter Name="Address1" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address2" Type="nvarchar" Mode="In" />
+          <Parameter Name="CityId" Type="int" Mode="In" />
+          <Parameter Name="StudentPhoto" Type="varchar" Mode="In" />
+          <Parameter Name="FatherPhoto" Type="varchar" Mode="In" />
+          <Parameter Name="MotherPhoto" Type="varchar" Mode="In" />
+          <Parameter Name="EmailId" Type="varchar" Mode="In" />
+          <Parameter Name="Timings" Type="varchar" Mode="In" />
+          <Parameter Name="fees" Type="float" Mode="In" />
+          <Parameter Name="StudentSource" Type="int" Mode="In" />
+          <Parameter Name="AdmissionRemarks" Type="nvarchar" Mode="In" />
+          <Parameter Name="CreatedBy" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_UserDetailsGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="uname" Type="varchar" Mode="In" />
           <Parameter Name="pwd" Type="nvarchar" Mode="In" />
@@ -46,10 +70,34 @@
           <FunctionImport Name="usp_MasterGetList" ReturnType="Collection(PlaySchoolModel.usp_MasterGetList_Result)">
           <Parameter Name="mastertype" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="usp_StudentGet" ReturnType="Collection(PlaySchoolModel.usp_StudentGet_Result)" />
+          <FunctionImport Name="usp_StudentInsert">
+            <Parameter Name="StudentName" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="Int32" />
+            <Parameter Name="DOB" Mode="In" Type="DateTime" />
+            <Parameter Name="DOJ" Mode="In" Type="DateTime" />
+            <Parameter Name="FatherName" Mode="In" Type="String" />
+            <Parameter Name="FatherOccupation" Mode="In" Type="Int32" />
+            <Parameter Name="FatherMobileNumber" Mode="In" Type="String" />
+            <Parameter Name="MotherName" Mode="In" Type="String" />
+            <Parameter Name="MotherOccupation" Mode="In" Type="Int32" />
+            <Parameter Name="MotherMobileNumber" Mode="In" Type="String" />
+            <Parameter Name="Address1" Mode="In" Type="String" />
+            <Parameter Name="Address2" Mode="In" Type="String" />
+            <Parameter Name="CityId" Mode="In" Type="Int32" />
+            <Parameter Name="StudentPhoto" Mode="In" Type="String" />
+            <Parameter Name="FatherPhoto" Mode="In" Type="String" />
+            <Parameter Name="MotherPhoto" Mode="In" Type="String" />
+            <Parameter Name="EmailId" Mode="In" Type="String" />
+            <Parameter Name="Timings" Mode="In" Type="String" />
+            <Parameter Name="fees" Mode="In" Type="Double" />
+            <Parameter Name="StudentSource" Mode="In" Type="Int32" />
+            <Parameter Name="AdmissionRemarks" Mode="In" Type="String" />
+            <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="usp_StudentbyIDGet" ReturnType="Collection(PlaySchoolModel.usp_StudentbyIDGet_Result)">
             <Parameter Name="StudentID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_StudentGet" ReturnType="Collection(PlaySchoolModel.usp_StudentGet_Result)" />
         </EntityContainer>
         <ComplexType Name="usp_UserDetailsGet_Result">
           <Property Type="Int32" Name="UserID" Nullable="false" />
@@ -84,38 +132,6 @@
           <Property Type="Int32" Name="MasterCodeID" Nullable="false" />
           <Property Type="String" Name="MasterValue" Nullable="true" MaxLength="50" />
         </ComplexType>
-        <ComplexType Name="usp_StudentbyIDGet_Result">
-          <Property Type="Int32" Name="StudentID" Nullable="false" />
-          <Property Type="String" Name="StudentName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="Gender" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="CityName" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="ZipCode" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="StateName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="CountryName" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="DOB" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="DOJ" Nullable="true" Precision="23" />
-          <Property Type="String" Name="FatherName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="FatherOccupation" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="MotherOccupation" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="FatherMobileNumber" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="MotherName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="MotherMobileNumber" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="Address1" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="Address2" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="StudentPhoto" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="FatherPhoto" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="MotherPhoto" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="EmailId" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="Timings" Nullable="true" MaxLength="20" />
-          <Property Type="Double" Name="fees" Nullable="true" />
-          <Property Type="String" Name="StudentSource" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="AdmissionRemarks" Nullable="true" MaxLength="500" />
-          <Property Type="Byte" Name="status" Nullable="true" />
-          <Property Type="String" Name="UserName" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="CityID" Nullable="false" />
-          <Property Type="Int32" Name="StateID" Nullable="false" />
-          <Property Type="Int32" Name="CountryID" Nullable="false" />
-        </ComplexType>
         <ComplexType Name="usp_StudentGet_Result">
           <Property Type="Int32" Name="StudentID" Nullable="false" />
           <Property Type="String" Name="StudentName" Nullable="true" MaxLength="150" />
@@ -147,6 +163,43 @@
           <Property Type="Int32" Name="CityID" Nullable="false" />
           <Property Type="Int32" Name="StateID" Nullable="false" />
           <Property Type="Int32" Name="CountryID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_StudentbyIDGet_Result">
+          <Property Type="Int32" Name="StudentID" Nullable="false" />
+          <Property Type="String" Name="StudentName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CityName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ZipCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="StateName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CountryName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DOB" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="DOJ" Nullable="true" Precision="23" />
+          <Property Type="String" Name="FatherName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="FatherOccupation" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MotherOccupation" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FatherMobileNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="MotherName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="MotherMobileNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="StudentPhoto" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="FatherPhoto" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="MotherPhoto" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="EmailId" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Timings" Nullable="true" MaxLength="20" />
+          <Property Type="Double" Name="fees" Nullable="true" />
+          <Property Type="String" Name="StudentSource" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AdmissionRemarks" Nullable="true" MaxLength="500" />
+          <Property Type="Byte" Name="status" Nullable="true" />
+          <Property Type="String" Name="UserName" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="CityID" Nullable="false" />
+          <Property Type="Int32" Name="StateID" Nullable="false" />
+          <Property Type="Int32" Name="CountryID" Nullable="false" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="Int32" Name="GenderId" Nullable="false" />
+          <Property Type="Int32" Name="FatherOccupationId" Nullable="true" />
+          <Property Type="Int32" Name="MotherOccupationId" Nullable="true" />
+          <Property Type="Int32" Name="StudentSourceId" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -207,42 +260,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_StudentbyIDGet" FunctionName="PlaySchoolModel.Store.usp_StudentbyIDGet">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="PlaySchoolModel.usp_StudentbyIDGet_Result">
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="CityName" ColumnName="CityName" />
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="StateName" ColumnName="StateName" />
-                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
-                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
-                <ScalarProperty Name="FatherOccupation" ColumnName="FatherOccupation" />
-                <ScalarProperty Name="MotherOccupation" ColumnName="MotherOccupation" />
-                <ScalarProperty Name="FatherMobileNumber" ColumnName="FatherMobileNumber" />
-                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
-                <ScalarProperty Name="MotherMobileNumber" ColumnName="MotherMobileNumber" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="StudentPhoto" ColumnName="StudentPhoto" />
-                <ScalarProperty Name="FatherPhoto" ColumnName="FatherPhoto" />
-                <ScalarProperty Name="MotherPhoto" ColumnName="MotherPhoto" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="Timings" ColumnName="Timings" />
-                <ScalarProperty Name="fees" ColumnName="fees" />
-                <ScalarProperty Name="StudentSource" ColumnName="StudentSource" />
-                <ScalarProperty Name="AdmissionRemarks" ColumnName="AdmissionRemarks" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="CityID" ColumnName="CityID" />
-                <ScalarProperty Name="StateID" ColumnName="StateID" />
-                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_StudentGet" FunctionName="PlaySchoolModel.Store.usp_StudentGet">
             <ResultMapping>
               <ComplexTypeMapping TypeName="PlaySchoolModel.usp_StudentGet_Result">
@@ -276,6 +293,48 @@
                 <ScalarProperty Name="CityID" ColumnName="CityID" />
                 <ScalarProperty Name="StateID" ColumnName="StateID" />
                 <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_StudentInsert" FunctionName="PlaySchoolModel.Store.usp_StudentInsert" />
+          <FunctionImportMapping FunctionImportName="usp_StudentbyIDGet" FunctionName="PlaySchoolModel.Store.usp_StudentbyIDGet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PlaySchoolModel.usp_StudentbyIDGet_Result">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="FatherOccupation" ColumnName="FatherOccupation" />
+                <ScalarProperty Name="MotherOccupation" ColumnName="MotherOccupation" />
+                <ScalarProperty Name="FatherMobileNumber" ColumnName="FatherMobileNumber" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="MotherMobileNumber" ColumnName="MotherMobileNumber" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="StudentPhoto" ColumnName="StudentPhoto" />
+                <ScalarProperty Name="FatherPhoto" ColumnName="FatherPhoto" />
+                <ScalarProperty Name="MotherPhoto" ColumnName="MotherPhoto" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Timings" ColumnName="Timings" />
+                <ScalarProperty Name="fees" ColumnName="fees" />
+                <ScalarProperty Name="StudentSource" ColumnName="StudentSource" />
+                <ScalarProperty Name="AdmissionRemarks" ColumnName="AdmissionRemarks" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="FatherOccupationId" ColumnName="FatherOccupationId" />
+                <ScalarProperty Name="MotherOccupationId" ColumnName="MotherOccupationId" />
+                <ScalarProperty Name="StudentSourceId" ColumnName="StudentSourceId" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

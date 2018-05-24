@@ -10,7 +10,8 @@ namespace HumptyDumptyPlaySchool.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "UserLogin", new { area = "Login" });
+            //return View();
         }
 
         public ActionResult About()

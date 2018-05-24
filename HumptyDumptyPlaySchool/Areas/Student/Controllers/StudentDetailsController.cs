@@ -73,50 +73,79 @@ namespace HumptyDumptyPlaySchool.Areas.Student.Controllers
             }
         }
         [HttpPost]
-        public ActionResult CreateStudent(usp_StudentGet_Result student)
+        public async Task< ActionResult> CreateStudent(usp_StudentbyIDGet_Result student)
         {
             try
             {
                 if (Session["LoginInfo"] != null)
                 {
-                    string studentphoto, fatherphoto, motherphoto;
-                    int stateID = Convert.ToInt32(Request.Form["State"].ToString());
-                    int CountyID = Convert.ToInt32(Request.Form["CountryName"].ToString());
-                    int CityID = Convert.ToInt32(Request.Form["City"].ToString());
-                    int Gender = Convert.ToInt32(Request.Form["Gender"].ToString());
-                    int MotherOccupation = Convert.ToInt32(Request.Form["MotherOccupation"].ToString());
-                    int FatherOccupation = Convert.ToInt32(Request.Form["City"].ToString());
-                    int StudentSource = Convert.ToInt32(Request.Form["StudentSource"].ToString());
-                    var fp = Request.Files["studentphoto"];
-                    if (fp != null && fp.ContentLength >= 0)
+                    if (ModelState.IsValid)
                     {
-                        var fileName = Path.GetFileName(fp.FileName);
-                        Guid Id = Guid.NewGuid();
-                        studentphoto = "~/App_Data/Upload/" + Id.ToString() + Path.GetExtension(fileName);
-                        string path = Server.MapPath("~/App_Data/Upload/") + Id.ToString() + Path.GetExtension(fileName);
-                        fp.SaveAs(path);
-                        fp = null;
+                        // usp_StudentbyIDGet_Result studentdetails = new usp_StudentbyIDGet_Result();
+                        string studentphoto = string.Empty, fatherphoto = string.Empty, motherphoto = string.Empty;
+                        //studentdetails.StudentName = student.StudentName.ToString();
+                        student.StateID = Convert.ToInt32(Request.Form["State"].ToString());
+                        student.CountryID = Convert.ToInt32(Request.Form["CountryName"].ToString());
+                        student.CityID = Convert.ToInt32(Request.Form["City"].ToString());
+                        student.GenderId = Convert.ToInt32(Request.Form["Gender"].ToString());
+                        student.MotherOccupationId = Convert.ToInt32(Request.Form["MotherOccupation"].ToString());
+                        student.FatherOccupationId = Convert.ToInt32(Request.Form["City"].ToString());
+                        student.StudentSourceId = Convert.ToInt32(Request.Form["StudentSource"].ToString());
+                        var fp = Request.Files["studentphoto"];
+
+                        if (fp != null && fp.ContentLength >= 0)
+                        {
+                            var fileName = Path.GetFileName(fp.FileName);
+                            Guid Id = Guid.NewGuid();
+                            studentphoto = "~/App_Data/Upload/" + Id.ToString() + Path.GetExtension(fileName);
+                            string path = Server.MapPath("~/App_Data/Upload/") + Id.ToString() + Path.GetExtension(fileName);
+                            fp.SaveAs(path);
+                            fp = null;
+                        }
+                        fp = Request.Files["fatherphoto"];
+                        if (fp != null && fp.ContentLength >= 0)
+                        {
+                            var fileName = Path.GetFileName(fp.FileName);
+                            Guid Id = Guid.NewGuid();
+                            fatherphoto = "~/App_Data/Upload/" + Id.ToString() + Path.GetExtension(fileName);
+                            string path = Server.MapPath("~/App_Data/Upload/") + Id.ToString() + Path.GetExtension(fileName);
+                            fp.SaveAs(path);
+                            fp = null;
+                        }
+                        fp = Request.Files["motherphoto"];
+                        if (fp != null && fp.ContentLength >= 0)
+                        {
+                            var fileName = Path.GetFileName(fp.FileName);
+                            Guid Id = Guid.NewGuid();
+                            motherphoto = "~/App_Data/Upload/" + Id.ToString() + Path.GetExtension(fileName);
+                            string path = Server.MapPath("~/App_Data/Upload/") + Id.ToString() + Path.GetExtension(fileName);
+                            fp.SaveAs(path);
+                            fp = null;
+                        }
+                        student.MotherPhoto = motherphoto.ToString();
+                        student.FatherPhoto = fatherphoto.ToString();
+                        student.StudentPhoto = studentphoto.ToString();
+                        usp_UserDetailsGet_Result userdetails = (usp_UserDetailsGet_Result)Session["LoginInfo"];
+                        student.UserID = userdetails.UserID;
+                        using (var client = new HttpClient())
+                        {
+                            client.BaseAddress = new Uri(baseUrl);
+                            client.DefaultRequestHeaders.Clear();
+                            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                            HttpResponseMessage response = await client.PostAsJsonAsync("Student/SudentInsert", student);
+                            response.EnsureSuccessStatusCode();
+                            if (response.IsSuccessStatusCode)
+                            {
+
+                                var studentresponse = response.Content.ReadAsStringAsync().Result;
+                                //  studentList = JsonConvert.DeserializeObject<List<usp_StudentGet_Result>>(studentresponse);
+
+                            }
+                        }
                     }
-                    fp = Request.Files["fatherphoto"];
-                    if (fp != null && fp.ContentLength >= 0)
-                    {
-                        var fileName = Path.GetFileName(fp.FileName);
-                        Guid Id = Guid.NewGuid();
-                        fatherphoto = "~/App_Data/Upload/" + Id.ToString() + Path.GetExtension(fileName);
-                        string path = Server.MapPath("~/App_Data/Upload/") + Id.ToString() + Path.GetExtension(fileName);
-                        fp.SaveAs(path);
-                        fp = null;
-                    }
-                    fp = Request.Files["motherphoto"];
-                    if (fp != null && fp.ContentLength >= 0)
-                    {
-                        var fileName = Path.GetFileName(fp.FileName);
-                        Guid Id = Guid.NewGuid();
-                        motherphoto = "~/App_Data/Upload/" + Id.ToString() + Path.GetExtension(fileName);
-                        string path = Server.MapPath("~/App_Data/Upload/") + Id.ToString() + Path.GetExtension(fileName);
-                        fp.SaveAs(path);
-                        fp = null;
-                    }
+                    else
+                        RedirectToAction("CreateStudent");
+
                 }
                 else
                 {

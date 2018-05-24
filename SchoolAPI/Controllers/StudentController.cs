@@ -31,5 +31,15 @@ namespace SchoolAPI.Controllers
             List<usp_StudentbyIDGet_Result> StudentDetails = playschool.usp_StudentbyIDGet(id).ToList();
             return StudentDetails;
         }
+        [HttpPost]
+        public int SudentInsert(usp_StudentbyIDGet_Result studentDetails)
+        {
+            
+           int result= playschool.usp_StudentInsert(studentDetails.StudentName, studentDetails.GenderId, studentDetails.DOB, studentDetails.DOJ, studentDetails.FatherName,
+                studentDetails.FatherOccupationId, studentDetails.FatherMobileNumber, studentDetails.MotherName, studentDetails.MotherOccupationId, studentDetails.MotherMobileNumber,
+                studentDetails.Address1, studentDetails.Address2, studentDetails.CityID, studentDetails.StudentPhoto, studentDetails.FatherPhoto,
+                studentDetails.MotherPhoto, studentDetails.EmailId, studentDetails.Timings, studentDetails.fees, studentDetails.StudentSourceId, studentDetails.AdmissionRemarks, studentDetails.UserID) ;
+            return result;
+        }
     }
 }
