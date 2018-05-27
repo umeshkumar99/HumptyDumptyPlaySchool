@@ -33,13 +33,12 @@ namespace HumptyDumptyPlaySchool.Areas.Login.Controllers
         [HttpGet]
         public async Task<JsonResult> CheckLogin(string usename,string password)
         {
-            //   List<usp_UserDetailsGet_Result> LoginInfo = new List<usp_UserDetailsGet_Result>();
+            
             usp_UserDetailsGet_Result LoginInfo=new usp_UserDetailsGet_Result();
             clsLogin logindetails = new clsLogin();
             try {
                 using (var client = new HttpClient())
                 {
-                   
                     
                     logindetails.username = usename;
                     logindetails.pssword = password;

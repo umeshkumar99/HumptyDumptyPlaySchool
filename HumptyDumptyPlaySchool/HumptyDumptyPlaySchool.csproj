@@ -554,6 +554,7 @@
     <Content Include="Areas\Student\Views\StudentDetails\EditStudent.cshtml" />
     <Content Include="Scripts\commanscript.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="App_Data\onlinetutor_26052018.bak" />
     <None Include="Properties\PublishProfiles\test.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -614,7 +615,6 @@
     <Content Include="Views\Shared\_AddressPartialStrongly.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\Comman\Models\" />
     <Folder Include="Areas\Comman\Views\Comman\" />
     <Folder Include="Areas\Login\Models\" />
