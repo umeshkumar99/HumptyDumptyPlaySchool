@@ -11,6 +11,8 @@ using System.Net.Http.Headers;
 using System.IO;
 using Newtonsoft.Json;
 using System.Web;
+using Microsoft.Reporting.WebForms;
+using ReportViewerForMvc;
 
 namespace HumptyDumptyPlaySchool.Areas.Student.Controllers
 {
@@ -392,6 +394,45 @@ namespace HumptyDumptyPlaySchool.Areas.Student.Controllers
                 });
                 return Json(new SelectList(Master, "Value", "Text", JsonRequestBehavior.AllowGet));
             }
+        }
+
+        public ActionResult ReportStudentDetails()
+        {
+            ReportViewer reportview = new ReportViewer();
+            reportview.ProcessingMode = ProcessingMode.Local;
+            reportview.SizeToReportContent = true;
+
+            List<usp_StudentGet_Result> studentList = new List<usp_StudentGet_Result>();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(baseUrl);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage response =  client.GetAsync("Student/GetStudentList").Result;
+                    response.EnsureSuccessStatusCode();
+                    if (response.IsSuccessStatusCode)
+                    {
+
+                        var studentresponse = response.Content.ReadAsStringAsync().Result;
+                        studentList = JsonConvert.DeserializeObject<List<usp_StudentGet_Result>>(studentresponse);
+
+                    }
+                }
+
+            
+
+
+
+
+
+
+            reportview.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath)+ @"Report\StudentDetails.rdlc";
+
+
+
+            reportview.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", studentList));
+            ViewBag.StudentDetails = reportview;
+            return View();
         }
         }
     }
